@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--UIRunCaldender-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Run_Calendar_Maker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="UIRunCaldender" id="BYZ-38-t0r" customClass="ViewController" customModule="Run_Calendar_Maker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -141,6 +141,10 @@
                                 <rect key="frame" x="146" y="617" width="105" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Generate"/>
+                                <connections>
+                                    <action selector="generate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="o31-ro-gpy"/>
+                                    <segue destination="EZW-gi-Y7z" kind="show" identifier="submissionSegue" id="4Ue-5R-EHa"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ig3-N2-5Sl">
                                 <rect key="frame" x="312" y="464" width="42" height="21"/>
@@ -174,16 +178,57 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
+                        <outlet property="currentDistance" destination="1Ac-1Q-spT" id="MPD-sX-zzI"/>
                         <outlet property="custombutton" destination="1Me-no-hG3" id="XU4-At-ZZS"/>
                         <outlet property="custonedittext" destination="gTY-VC-b3k" id="ZqO-wR-txa"/>
+                        <outlet property="dateOutlet" destination="mRs-Bm-GJx" id="pW1-Gw-mYk"/>
                         <outlet property="fortytwokbutton" destination="1uE-PM-1a6" id="dHD-18-e6Q"/>
+                        <outlet property="lengthOfProgram" destination="tmB-F1-uAc" id="ofh-fo-fCl"/>
+                        <outlet property="parkRunSwitch" destination="GO7-bo-ezk" id="c85-5h-2WE"/>
                         <outlet property="tenkbutton" destination="HCc-Gx-QKu" id="drg-mu-xuC"/>
                         <outlet property="twentyonekbutton" destination="GVo-sF-DH9" id="58P-US-QIp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.59999999999999" y="123.68815592203899"/>
+            <point key="canvasLocation" x="-324" y="247"/>
+        </scene>
+        <!--Run Calender Table View Controller-->
+        <scene sceneID="97f-Xk-yh7">
+            <objects>
+                <tableViewController id="EZW-gi-Y7z" customClass="RunCalenderTableViewController" customModule="Run_Calendar_Maker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="i3h-Eo-thO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kRG-mn-shq">
+                            <rect key="frame" x="0.0" y="72" width="375" height="99"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Share"/>
+                            <connections>
+                                <action selector="sharebutton:" destination="EZW-gi-Y7z" eventType="touchUpInside" id="Lbj-ZG-XQA"/>
+                            </connections>
+                        </button>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="0HD-MG-CyI">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0HD-MG-CyI" id="Zoc-G9-NBM">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="EZW-gi-Y7z" id="mND-xY-hgX"/>
+                            <outlet property="delegate" destination="EZW-gi-Y7z" id="LDz-JS-kbv"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tkc-oO-qnG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="557.60000000000002" y="246.9265367316342"/>
         </scene>
     </scenes>
 </document>
