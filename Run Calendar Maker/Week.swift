@@ -7,49 +7,94 @@
 //
 
 import UIKit
+import CoreData
 
 class Week: NSObject {
     
+    var date : Date
+    var mon : String
+    var tues : String
+    var wed : String
+    var thurs : String
+    var fri : String
+    var sat : String
+    var sun : String
+    var length : Double
+    
     
     // Specify date components
-    init(weekNumber : Int, totalWeeks : Int, monthDate : Int, yearDate : Int, dayDate : Int, currentDistanceRinning : Double, distance : Double, parkRun : Bool){
-        
-        var date : String
-        var mon : String = "rest"
-        var tues : String = "rest"
-        var wed : String = "rest"
-        var thrus : String = "rest"
-        var fri : String = "rest"
-        var sat : String = "rest"
-        var sun : String = "rest"
+    init(weekNumber : Int, totalWeeks : Int, typeDate : Date, currentDistanceRinning : Double, distance : Double, parkRun : Bool){
+        date = typeDate
+         mon = "rest"
+         tues  = "rest"
+         wed  = "rest"
+         thurs  = "rest"
+         fri = "rest"
+         sat = "rest"
+         sun = "rest"
         var stride : Double
-        var newTime : String
-        var length : Double = currentDistanceRinning
-        
+         length = currentDistanceRinning
+        stride = (distance-currentDistanceRinning) / Double(totalWeeks - 3)
         
         if(weekNumber != totalWeeks)
         {
-            wed = String(length / 10 + 5)
+            //mon
+            mon = String(weekNumber) + "x400m Speedwork"
+            //wed
+            wed = String((stride * Double(weekNumber) + currentDistanceRinning)/3)
             
-            if(= mon)
-            {
-                
-            }
+            //sat
             if(parkRun == true)
             {
                 sat = "5"
             }
+            //sun
+            if (weekNumber - totalWeeks == -2){
+            sun = String(distance / 2)
+            }
+            if (weekNumber - totalWeeks == -1){
+                sun = String(distance / 4)
+            } else{
+            sun = String(stride * Double(weekNumber) + currentDistanceRinning)
+            }
+        
+        }else{
+        
+            let weekDay = Calendar.current.component(.weekday, from: typeDate)
+    
+        if(weekDay == 1){
+            mon = String(distance)
+    
         }
         
+        if(weekDay == 2){
+            tues = String(distance)
+            
+        }
+        if(weekDay == 3){
+            wed = String(distance)
+            
+        }
+        if(weekDay == 4){
+            thurs = String(distance)
+            
+        }
+        if(weekDay == 5){
+            fri = String(distance)
+            
+        }
+        if(weekDay == 6){
+            sat = String(distance)
+            
+        }
+        if(weekDay == 7){
+            sun = String(distance)
+            
+        }
+                            
+                }
+            
+            }
+        }
         
-    var dateComponents = DateComponents()
-    dateComponents.month = monthDate
-    dateComponents.year = yearDate
-    dateComponents.day = monthDate
     
-    // Create date from components
-    let userCalendar = Calendar.current // user calendar
-    let someDateTime = userCalendar.date(from: dateComponents)
-        
-    }
-}

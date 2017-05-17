@@ -7,16 +7,19 @@
 //
 
 import UIKit
-
+import CoreData
+var temp = Date()
+var db = Database(totalWeeksref : 0, typeDateref : temp,currentDistanceRinningref : 0, distanceref : 0, parkRunref : false)
 class ViewController: UIViewController {
     
-    
+    var distance : Double = 0.0
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        custonedittext.isEnabled = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,19 +34,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var custombutton: UISwitch!
     @IBOutlet weak var custonedittext: UITextField!
     @IBOutlet weak var dateOutlet: UIDatePicker!
+    @IBOutlet weak var parkRunSwitch: UISwitch!
+    @IBOutlet weak var currentDistance: UITextField!
     
     
     @IBAction func generate(_ sender: UIButton) {
-        performSegue(withIdentifier: "submissionSegue", sender: self)
+        var temp : String = lengthOfProgram.text!
+        var temp2 : Int = Int(temp)!
         
+        db = Database(totalWeeksref : Int(temp2), typeDateref : dateOutlet.date,currentDistanceRinningref : Double(currentDistance.text!)!, distanceref : distance, parkRunref : parkRunSwitch.isOn)
         
     }
+    
     
     @IBAction func tenkbuton(_ sender: UISwitch) {
         twentyonekbutton.isOn = false
         fortytwokbutton.isOn = false
         custombutton.isOn = false
         custonedittext.isEnabled = false
+        distance = 10
     }
     
     @IBAction func twentyonekbutton(_ sender: UISwitch) {
@@ -51,6 +60,7 @@ class ViewController: UIViewController {
         fortytwokbutton.isOn = false
         custombutton.isOn = false
         custonedittext.isEnabled = false
+        distance = 21.1
     }
     
     @IBAction func fortytwokbutton(_ sender: UISwitch) {
@@ -58,6 +68,7 @@ class ViewController: UIViewController {
         tenkbutton.isOn = false
         custombutton.isOn = false
         custonedittext.isEnabled = false
+        distance = 41.195
     }
     
     @IBAction func custombutton(_ sender: UISwitch) {
@@ -65,43 +76,18 @@ class ViewController: UIViewController {
         fortytwokbutton.isOn = false
         tenkbutton.isOn = false
         custonedittext.isEnabled = true
+        distance = Double(custonedittext.text!)!
     }
     
      func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         
         // Create a new variable to store the instance of the next view controller
         let destinationVC = segue.destination as! RunCalenderTableViewController
-        
-        destinationVC.tenkbutton = tenkbutton.isOn
-        destinationVC.lengthOfProgram = lengthOfProgram.text!
-        destinationVC.twentyonekbutton = twentyonekbutton.isOn
-        destinationVC.fortytwokbutton = fortytwokbutton.isOn
-        destinationVC.custombutton = custombutton.isOn
-        destinationVC.custonedittext = custonedittext.text!
-    }
-    
-    // getting length of program
-   // @IBAction func getVal () {
-        //let lengthProgramText: String = lengthOfProgram.text!
-        //Int.self; lengthOfProgram = Int(lengthProgramText)
-     //   Int value = [[lengthOfProgram.text] intValue];
-    
- 
-  //  }
-    
-    
-    //@IBAction func generate(_ sender: UIButton) {
+        destinationVC.detebese = db
         
 
-        
-  //  }
-    
-  //  class Trip {
-    //    let lengthProgramText: String = lengthOfProgram.text!
-    //    var lengthProgramNum = Int(lengthProgramText)
-        
-        
-  ///  }
-    
 }
+}
+
+
 

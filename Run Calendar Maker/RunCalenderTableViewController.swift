@@ -7,31 +7,28 @@
 //
 
 import UIKit
-
+import CoreData
 
 
 class RunCalenderTableViewController: UITableViewController {
     
-    var  lengthOfProgram : String = ""
-    var tenkbutton : Bool = false
-    var twentyonekbutton : Bool = false
-    var fortytwokbutton : Bool = false
-    var custombutton : Bool = false
-    var custonedittext : String = ""
+    
+    func loadweeks(){
+        
+        //let context = (UIApplication.shared.delegate as! //AppDelegate).persistentContainer.viewContext
+        
+        //do {
+            //let req : NSFetchRequest<Week> = Stringweek.fetchRequest()
+            //trips try context.fetch(req)} catch let err {print(err)}
+
     
     
     
-    
-    
+    }
+    var detebese = Database(totalWeeksref : 0, typeDateref : temp,currentDistanceRinningref : 0, distanceref : 0, parkRunref : false)
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        let a:Int? = Int(lengthOfProgram)
-        
-        for index in 0...a! {
-            
-        }
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -40,6 +37,30 @@ class RunCalenderTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
+    @IBAction func sharebuttonnavbar(_ sender: UIBarButtonItem) {
+        // image to share
+        let image = captureScreen()
+        
+        // set up activity view controller
+        let imageToShare = [ image! ]
+        let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+        
+        // exclude some activity types from the list (optional)
+        activityViewController.excludedActivityTypes = [ UIActivityType.airDrop, UIActivityType.postToFacebook ]
+        
+        // present the view controller
+        self.present(activityViewController, animated: true, completion: nil)
+    }
+    
+
+    func captureScreen() -> UIImage? {
+        UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,9 +76,15 @@ class RunCalenderTableViewController: UITableViewController {
         return 0
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "weekCell", for: indexPath)
+        
+        // Configure the cell...
+        
+       cell.textLabel?.text = db.weeks[indexPath.row].mon + " " + db.weeks[indexPath.row].tues + " " + db.weeks[indexPath.row].wed + " " + db.weeks[indexPath.row].thurs + " " + db.weeks[indexPath.row].fri + " " + db.weeks[indexPath.row].sat + " " + db.weeks[indexPath.row].sun
+        
+ 
+        return cell
     }
 
     /*
